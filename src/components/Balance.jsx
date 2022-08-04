@@ -17,7 +17,9 @@ const Balance = ({ income, expense, addToTransactions }) => {
         <button
           title={!isShow && "Add Transaction"}
           onClick={() => setIsShow(!isShow)}
-          className="bg-slate-900 text-white rounded-md px-3 py-1"
+          className={`bg-slate-900 text-white rounded-md px-3 py-1 ${
+            isShow && "bg-red-600"
+          }`}
         >
           {isShow ? "cancel" : "Add"}
         </button>
@@ -29,14 +31,14 @@ const Balance = ({ income, expense, addToTransactions }) => {
         addToTransactions={addToTransactions}
       />
 
-      <div className="flex justify-center items-center gap-x-1">
+      <div className="flex justify-center items-center gap-2 flex-wrap">
         <div className="flex items-start flex-col ring-1 ring-slate-400 p-8 flex-1 rounded-md">
           <p>Expence</p>
-          <p className="text-red-500 text-xl">${expense}</p>
+          <p className="text-red-500 text-2xl font-bold">${expense}</p>
         </div>
         <div className="flex items-start flex-col ring-1 ring-slate-400 p-8 flex-1 rounded-md">
           <p>Income</p>
-          <p className="text-green-700 text-xl">${income}</p>
+          <p className="text-green-700 text-2xl font-bold">${income}</p>
         </div>
       </div>
     </section>

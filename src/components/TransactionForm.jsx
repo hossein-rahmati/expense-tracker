@@ -12,11 +12,17 @@ const TransactionForm = ({ isShow, setIsShow, addToTransactions }) => {
   };
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    addToTransactions(formValue);
-    setIsShow(!isShow);
-    formValue.amount = null;
-    formValue.description = "";
+    if (!formValue.amount || !formValue.description) {
+      alert("Please fill all fields");
+      e.preventDefault();
+      return;
+    } else {
+      e.preventDefault();
+      addToTransactions(formValue);
+      setIsShow(!isShow);
+      formValue.amount = null;
+      formValue.description = "";
+    }
   };
 
   return (
@@ -25,6 +31,7 @@ const TransactionForm = ({ isShow, setIsShow, addToTransactions }) => {
         <form className="w-full flex flex-col" onSubmit={submitHandler}>
           <label>description</label>
           <input
+            maxLength="30"
             onChange={changeHandler}
             value={formValue.description}
             name="description"
@@ -46,21 +53,27 @@ const TransactionForm = ({ isShow, setIsShow, addToTransactions }) => {
               onChange={changeHandler}
               checked={formValue.type === "expense"}
               type="radio"
-              className="mr-1"
+              className="mr-1 h-4 w-4"
               name="type"
               value="expense"
+              id="expense"
             />
-            <label className="mr-8">Expense</label>
+            <label htmlFor="expense" className="mr-8 cursor-pointer text-lg">
+              Expense
+            </label>
 
             <input
               onChange={changeHandler}
               checked={formValue.type === "income"}
               type="radio"
-              className="mr-1"
+              className="mr-1 h-4 w-4"
               name="type"
               value="income"
+              id="income"
             />
-            <label className="mr-8">Income</label>
+            <label htmlFor="income" className="mr-8 cursor-pointer text-lg">
+              Income
+            </label>
           </div>
           <button
             type="submit"
